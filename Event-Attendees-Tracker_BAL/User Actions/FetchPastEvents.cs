@@ -1,22 +1,34 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Event_Attendees_Tracker_DAL.DBQueries;
 using Event_Attendees_Tracker_DAL.Models;
 using Newtonsoft.Json;
-
+using Event_Attendees_Tracker_CustomResponseModel;
 namespace Event_Attendees_Tracker_BAL.User_Actions
 {
    public class FetchPastEvents
     {
-        public static String fetchPastEventData(int userId)
+      
+        public static List<PastEventResponseModel> fetchPastEventAttendeesData(int userId)
         {
-            var pastEventDetails = PastEvent.fetchPastEventData(userId);
-            return JsonConvert.SerializeObject( pastEventDetails);
-
-
+            try
+            {
+                var pastEventResponseDetails = PastEvent.fetchPastEventAttendeesData(userId);
+                if (pastEventResponseDetails == null)
+                {
+                    return null;
+                }
+                return pastEventResponseDetails;
+            }
+            catch(Exception e)
+            {
+                throw e;
+            }
         }
+
     }
 }

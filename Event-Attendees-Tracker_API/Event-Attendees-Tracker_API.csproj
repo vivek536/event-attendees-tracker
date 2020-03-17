@@ -266,6 +266,10 @@
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CustomResponseModel\Event_Attendees_Tracker_CustomResponseModel.csproj">
+      <Project>{7d61e0f7-8c68-4709-b674-900f23c74722}</Project>
+      <Name>Event_Attendees_Tracker_CustomResponseModel</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Event-Attendees-Tracker_BAL\Event-Attendees-Tracker_BAL.csproj">
       <Project>{2e298c53-8c54-413e-bb08-14a0c9809e53}</Project>
       <Name>Event-Attendees-Tracker_BAL</Name>

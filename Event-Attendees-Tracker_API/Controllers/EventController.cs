@@ -5,27 +5,33 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using Event_Attendees_Tracker_BAL.User_Actions;
+using Event_Attendees_Tracker_CustomResponseModel;
+using Newtonsoft.Json;
+
 namespace Event_Attendees_Tracker_API.Controllers
 {
     public class EventController : ApiController
     {
         [HttpGet]
-        public HttpResponseMessage PastEvents(int userId)
+        public HttpResponseMessage PastEventAttendees (int userId)
         {
             try
             {
-                String Jsondata = FetchPastEvents.fetchPastEventData(userId);
-                if (Jsondata != null)
+                var pastEventAttendeesData = FetchPastEvents.fetchPastEventAttendeesData(userId);
+                if (pastEventAttendeesData != null) 
                 {
-                    return Request.CreateResponse(HttpStatusCode.Created, Jsondata);
+                    return Request.CreateResponse(HttpStatusCode.OK, pastEventAttendeesData);
                 }
-                return Request.CreateResponse(HttpStatusCode.OK, "No Data Found");
+                else
+                {
+                    return Request.CreateResponse(HttpStatusCode.Created, new { Status = false});
+                }
             }
-            catch (Exception ex)
+            catch(Exception e)
             {
-                return Request.CreateResponse(HttpStatusCode.BadRequest, ex.Message);
-
+                return Request.CreateResponse(HttpStatusCode.BadRequest, "Error");
             }
         }
+
     }
 }

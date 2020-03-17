@@ -7,6 +7,8 @@ using System.Web.Mvc;
 using Event_Attendees_Tracker.Filters;
 using Event_Attendees_Tracker.Middlewares;
 using Event_Attendees_Tracker.Modals;
+using System.Collections.Generic;
+using Event_Attendees_Tracker_CustomResponseModel;
 
 namespace Event_Attendees_Tracker.Controllers
 {
@@ -108,8 +110,37 @@ namespace Event_Attendees_Tracker.Controllers
         //GET: /Organizer/Reports
         public ActionResult Reports()
         {
+            try
+            {
+                //todo: Add ViewBag UserId
+                var userId = (int)Session["UserId"];
+                ViewBag.userId = userId;
+                var request = new RestRequest("api/Event/PastEventAttendees?userId=" + ViewBag.userId);
+                request.Method = Method.GET;
+                var response = client.Execute(request);
+                ViewData["eventData"] = null;
+                if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    List<PastEventResponseModel> pastEventList = JsonConvert.DeserializeObject<List<PastEventResponseModel>>(response.Content);
+                    ViewData["eventData"] = pastEventList.ToArray();
+                }
+                else if(response.StatusCode == System.Net.HttpStatusCode.Created)
+                {
+                    ViewData["NoPastEvents"] ="No Events";
+                }
+                else
+                {
+                    ViewData["errorReports"] = "Error In Displaying Reports";
+                }
+            }
+            catch(Exception e)
+            {
+                ViewData["errorReports"] = "Error In Displaying Reports";
+            }
 
-            return View("OrganizerReports");
+            return View();
+
+
         }
     }
 }

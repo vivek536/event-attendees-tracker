@@ -154,6 +154,7 @@
     </Compile>
     <Compile Include="Middlewares\JsonDeserializer.cs" />
     <Compile Include="Middlewares\ParseExcel.cs" />
+    <Compile Include="Modals\EventDetailsModel.cs" />
     <Compile Include="Modals\EventModal.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -238,6 +239,12 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.4.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CustomResponseModel\Event_Attendees_Tracker_CustomResponseModel.csproj">
+      <Project>{7d61e0f7-8c68-4709-b674-900f23c74722}</Project>
+      <Name>Event_Attendees_Tracker_CustomResponseModel</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

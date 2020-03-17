@@ -40,7 +40,8 @@ namespace Event_Attendees_Tracker.Controllers
                 Debug.Print(content.GetString("RoleName"));
                 Debug.Print(content.GetInt("UserID").ToString());
 
-                FormsAuthentication.SetAuthCookie(content.GetInt("UserID").ToString(), false);            
+                FormsAuthentication.SetAuthCookie(content.GetInt("UserID").ToString(), false);
+                Session["UserId"] = content.GetInt("UserID");
 
                 return RedirectToAction("Dashboard", content.GetString("RoleName"));
             }
