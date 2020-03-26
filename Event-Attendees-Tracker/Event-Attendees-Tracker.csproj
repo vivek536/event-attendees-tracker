@@ -51,6 +51,9 @@
     <Reference Include="DocumentFormat.OpenXml, Version=2.7.2.0, Culture=neutral, PublicKeyToken=8fb06cb64d019a17, processorArchitecture=MSIL">
       <HintPath>..\packages\DocumentFormat.OpenXml.2.7.2\lib\net46\DocumentFormat.OpenXml.dll</HintPath>
     </Reference>
+    <Reference Include="Elmah, Version=1.2.14706.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\elmah.corelibrary.1.2.2\lib\Elmah.dll</HintPath>
+    </Reference>
     <Reference Include="ExcelNumberFormat, Version=1.0.3.0, Culture=neutral, PublicKeyToken=23c6f5d73be07eca, processorArchitecture=MSIL">
       <HintPath>..\packages\ExcelNumberFormat.1.0.3\lib\net20\ExcelNumberFormat.dll</HintPath>
     </Reference>
@@ -60,6 +63,9 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="RestSharp, Version=106.0.0.0, Culture=neutral, PublicKeyToken=598062e77f915f75, processorArchitecture=MSIL">
       <HintPath>..\packages\RestSharp.106.10.1\lib\net452\RestSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="shortid, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\shortid.2.0.0\lib\net45\shortid.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -72,12 +78,21 @@
     <Reference Include="System.IO.Packaging, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.IO.Packaging.4.0.0\lib\net46\System.IO.Packaging.dll</HintPath>
     </Reference>
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.7\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.2\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Http, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.7\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -125,6 +140,12 @@
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.Abstractions, Version=5.11.1.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.5.11.1\lib\net47\Unity.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Container, Version=5.11.1.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.5.11.1\lib\net47\Unity.Container.dll</HintPath>
+    </Reference>
     <Reference Include="WebGrease">
       <Private>True</Private>
       <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
@@ -152,13 +173,19 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Middlewares\ExcelInvalidRows.cs" />
     <Compile Include="Middlewares\JsonDeserializer.cs" />
     <Compile Include="Middlewares\ParseExcel.cs" />
-    <Compile Include="Modals\EventDetailsModel.cs" />
     <Compile Include="Modals\EventModal.cs" />
+    <Compile Include="Modals\Response Models\ActiveEvents.cs" />
+    <Compile Include="Modals\Response Models\dsd.cs" />
+    <Compile Include="Modals\Response Models\EventAttendeesModelList.cs" />
+    <Compile Include="Modals\Response Models\VolunteerEmailList.cs" />
+    <Compile Include="Modals\VolunteerModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Readme\Elmah.txt" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -171,17 +198,23 @@
     <Content Include="Content\css\Login_Page.css" />
     <Content Include="Content\css\ModifyEvent.css" />
     <Content Include="Content\css\Reports.css" />
+    <Content Include="Content\css\Volunteer_Scan.css" />
     <Content Include="Content\Images\EPAM_winter_party-081_72DPI RGB_.jpg" />
     <Content Include="Content\Images\Master_Page\Capture.png" />
     <Content Include="Content\Images\Master_Page\logo_white-blue.png" />
     <Content Include="Content\Images\Organizer_Dashboard\avatar.png" />
     <Content Include="Content\Images\Organizer_Dashboard\Event.jpg" />
     <Content Include="Content\Js\CreateCustom.js" />
+    <Content Include="Content\Js\CreateEventDropDown.js" />
+    <Content Include="Content\Js\CreateEventValidation.js" />
     <Content Include="Content\Js\Customjs.js" />
-    <Content Include="Content\Js\Reports.js" />
+    <Content Include="Content\Js\jsQR.js" />
+    <Content Include="Content\Js\createEventSession.js" />
     <Content Include="Content\Js\Login\LoginValidation.js" />
     <Content Include="Content\Js\Login_Page.js" />
     <Content Include="Content\Js\ModifyEvent.js" />
+    <Content Include="Content\Js\Reports.js" />
+    <Content Include="Content\Js\Volunteer_Scan.js" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -219,8 +252,10 @@
     <Content Include="Views\Volunteer\Dashboard.cshtml" />
     <Content Include="Views\Shared\AccessDenied.cshtml" />
     <Content Include="Views\Organizer\_OrganizerNav.cshtml" />
-    <Content Include="Views\Organizer\OrganizerReports.cshtml" />
+    <Content Include="Views\Organizer\GetDetailsOfEvent.cshtml" />
     <Content Include="Views\Organizer\Reports.cshtml" />
+    <Content Include="Views\Volunteer\Scan.cshtml" />
+    <Content Include="Views\Organizer\AddVolunteer.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -241,8 +276,8 @@
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CustomResponseModel\Event_Attendees_Tracker_CustomResponseModel.csproj">
-      <Project>{7d61e0f7-8c68-4709-b674-900f23c74722}</Project>
+    <ProjectReference Include="..\Event_Attendees_Tracker_CustomResponseModel\Event_Attendees_Tracker_CustomResponseModel.csproj">
+      <Project>{04fb6c84-a53a-4e72-b470-0d98c45111a9}</Project>
       <Name>Event_Attendees_Tracker_CustomResponseModel</Name>
     </ProjectReference>
   </ItemGroup>

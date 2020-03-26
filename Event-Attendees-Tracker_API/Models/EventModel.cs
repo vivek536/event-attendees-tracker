@@ -14,5 +14,6 @@ namespace Event_Attendees_Tracker_API.Models
         public string VolunteerEmail { get; set; }
         public string PosterImagePath { get; set; }
         public DataTable AttendeesDataTable { get; set; }
+        public int CreatedBy { get; set; }
     }
 }

@@ -19,28 +19,20 @@
 <body>
 
     <div class="navbar navbar-expand-sm navbar-inverse navbar-fixed-top" style="background-color:black;height:5%">
-
         <div class="container">
-
             <div class="navbar-header navbar-fixed-top">
-            <a class="navbar-brand" style="color:white;position: absolute;left:25px;padding:0px"><img src="~/Content/Images/Master_Page/Capture.png" width="200" height="48" /></a>
-
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-
-                <span class="icon-bar"></span>
-            </button>
-        </div>
-    </div>
-
-            <div class="navbar-collapse collapse" style="color:white;position: absolute;right:25px;bottom:10px;">
-
-                <a href="#" target="_blank"><input type="button" class="btn btn-primary"/>LOGOUT</a>
-
+                <a class="navbar-brand" style="color:white;position: absolute;left:25px;padding:0px"><img src="~/Content/Images/Master_Page/Capture.png" width="200" height="48" /></a>
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                </button>
             </div>
 
+            <div class="navbar-collapse collapse" style="color:white;position: absolute;right:25px;bottom:10px;">
+                @Html.ActionLink("LOGOUT", "Logout", "User", null,new { @class = "btn btn-primary" })              
+                @*<button type="button" class="btn btn-primary" onclick="">LOGOUT</button>*@
+            </div>
         </div>
-
- 
+    </div>
 
     @Scripts.Render("~/bundles/jquery")
 

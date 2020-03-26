@@ -12,12 +12,12 @@ namespace Event_Attendees_Tracker_BAL.util
 {
   
 
-    public class MailSend
+    public class MailSend : IMailSend
     {
         [DllImport("wininet.dll")]
         public extern static bool InternetGetConnectedState(out int Description, int ReversedValue);
 
-        public static void SendRegistrationMail(List<String> Recepient,int EventID)
+        public void SendRegistrationMail(List<String> Recepient,int EventID)
         {
             var eventDetails = FetchEvent.fetchEventData(EventID);
             int des;

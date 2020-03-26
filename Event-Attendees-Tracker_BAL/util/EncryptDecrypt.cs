@@ -3,9 +3,9 @@ using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace Event_Attendees_Tracker_BAL.Utils
+namespace Event_Attendees_Tracker_BAL.util
 {
-    public class EncryptDecrypt
+    public class EncryptDecrypt: IEncryptDecrypt
     {
         public string Encrypt(string clearText)
         {

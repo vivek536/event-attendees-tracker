@@ -73,7 +73,7 @@ a {
 
 
 body {
-    background-image: url('background image.jpg'),url('image.png');
+    background-image:url('background image.jpg'),url('image.png');
     background-repeat: no-repeat;
     background-color: white;
     background-size: cover;

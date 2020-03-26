@@ -12,11 +12,15 @@ using Event_Attendees_Tracker_BAL.Authentication;
 namespace Event_Attendees_Tracker_API.Controllers
 {
     public class LoginController : ApiController
-    {    
-        
+    {
+        private readonly IUserLogin _userLogin;
+        public LoginController(IUserLogin userLogin)
+        {
+            _userLogin = userLogin;
+        }
         public IHttpActionResult Post(LoginModel userLogin)
         {
-            var responseData = UserLogin.LoginUserWithEmailAndPassword(userLogin.Email, userLogin.Password);
+            var responseData = _userLogin.LoginUserWithEmailAndPassword(userLogin.Email, userLogin.Password);
             
             if(responseData==null)
             {

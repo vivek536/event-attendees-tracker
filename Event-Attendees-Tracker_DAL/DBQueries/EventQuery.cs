@@ -9,7 +9,7 @@ namespace Event_Attendees_Tracker_DAL.DBQueries
     public class EventQuery
     {
         static Event_Attendees_Tracker_DAL.Database_Context.EAT_DBContext _eatDBContext = Event_Attendees_Tracker_DAL.Instances.DBInstance.getDBInstance();
-        public static bool AddEvent(string eventName, string description, string venue, string posterImage, TimeSpan startTime, TimeSpan endTime, DateTime eventDate)
+        public static bool AddEvent(string eventName, string description, string venue, string posterImage, TimeSpan startTime, TimeSpan endTime, DateTime eventDate,int CreatedBy)
         {
             try
             {
@@ -22,7 +22,8 @@ namespace Event_Attendees_Tracker_DAL.DBQueries
                     EndTime = endTime,
                     EventDate = eventDate,
                     PosterImage = posterImage,
-                    CreatedAt = DateTime.Now                    
+                    CreatedAt = DateTime.Now  ,
+                    CreatedBy=CreatedBy
                 });
                 _eatDBContext.SaveChanges();
                 return true;

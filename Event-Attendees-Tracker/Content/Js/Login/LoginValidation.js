@@ -1,29 +1,47 @@
-﻿function funValid() {
-    var UserName = document.getElementById("username").value;
-    var Password = document.getElementById("password").value;
-    re = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-    if (UserName == "") {
-        document.getElementById("UsernameSpan").innerHTML = "Enter User Name";
-        return false;
-    }
-    else if (!re.test(document.getElementById("username").value)) {
-        document.getElementById("UsernameSpan").innerHTML = "Enter valid Email ID";
-        return false;
+﻿//Validation for emaiLID
+function emailValidation(event) {
+    let emailID = $('#emailID')
+    if (emailID.val() == "") {
+        emailID.addClass('is-invalid');
+        $('#emailHelper').removeClass('text-muted');
+        $('#emailHelper').html("Username Required");
+        event.preventDefault();
     }
     else {
-        document.getElementById("UsernameSpan").innerHTML = "";
+        $('#emailHelper').html("");
+        emailID.removeClass('is-invalid');
+        $('#emailHelper').addClass('text-muted');
     }
-    re = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/;
-    if (Password == "") {
-        document.getElementById("PassworddSpan").innerHTML = "Enter password ";
-        return false;
-    }
-    else if (!re.test(Password)) {
-        document.getElementById("PassworddSpan").innerHTML = "password must atleast contain a uppercase,lower case,special character,digit and should have min 6 to max 16 characters";
-        return false;
-    }
-    else {
-        document.getElementById("PassworddSpan").innerHTML = null;
-    }
-    return true;
 }
+
+//Validation for Password
+function passwordValidation(event) {
+    let password = $('#password')
+    if (password.val() == "") {
+        password.addClass('is-invalid');
+        $('#passwordHelpBlock').removeClass('text-muted');
+        $('#password').addClass('is-invalid');
+        $('#passwordHelpBlock').html('Password Required');
+        event.preventDefault();
+    }
+    else {
+        $('#passwordHelpBlock').addClass('text-muted');
+        $('#password').removeClass('is-invalid');
+        $('#passwordHelpBlock').html('');
+    }
+}
+
+
+$('#submitcheck').click((event) => {
+    emailValidation(event);
+    passwordValidation(event);
+})
+
+$('#emailID').blur((event) => {
+    emailValidation(event);    
+})
+
+$('#password').blur((event) => {
+    passwordValidation(event);
+})
+

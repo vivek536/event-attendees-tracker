@@ -10,30 +10,50 @@ using System.Diagnostics;
 
 namespace Event_Attendees_Tracker_BAL.util
 {
-    class EventRegistration
+    public class EventRegistration : IEventRegistration
     {
-        public static List<String> InsertTblRegisteredStudents(DataTable StudentRegistrationData, int EventID, string EventName)
+        private readonly IMailSend _mailSend;
+
+        public EventRegistration(IMailSend mailSend)
+        {
+            _mailSend = mailSend;
+        }
+
+        public Dictionary<string, string> InsertTblRegisteredStudents(DataTable StudentRegistrationData, int EventID, string EventName)
         {
             EventRegistrationDAL eventRegistration = new EventRegistrationDAL();
-            List<String> studentsInsertReturnValue = eventRegistration.InsertTblRegisteredStudents(StudentRegistrationData);
-            if (studentsInsertReturnValue.Count > 0)
+            Dictionary<String, String> returnData = new Dictionary<String, String>();
+            List<String> EmailList = new List<String>();
+            Dictionary<String, String> studentsInsertReturnValue = eventRegistration.InsertTblRegisteredStudents(StudentRegistrationData);
+            foreach (var item in studentsInsertReturnValue.Keys)
             {
-                var AttenddesInsertList = eventRegistration.InsertTblEventAttendees(studentsInsertReturnValue,EventID);
-                if (AttenddesInsertList.Count > 0)
+                if (studentsInsertReturnValue[item].Equals("Invalid Data"))
                 {
-                    MailSend.SendRegistrationMail(AttenddesInsertList,EventID);
-                    Debug.Print("Succesfully added data into Attendees Table");
+                    returnData.Add(item, studentsInsertReturnValue[item]);
                 }
                 else
                 {
-                    Debug.Print("Could not insert data into Attendees Table");
+                    EmailList.Add(item);
                 }
+            }
+            if (EmailList.Count > 0)
+            {
+                var AttenddesInsertList = eventRegistration.InsertTblEventAttendees(EmailList, EventID);
+                //if (AttenddesInsertList.Count > 0)
+                //{
+                //    _mailSend.SendRegistrationMail(AttenddesInsertList, EventID);
+                //    Debug.Print("Succesfully added data into Attendees Table");
+                //}
+                //else
+                //{
+                //    Debug.Print("Could not insert data into Attendees Table");
+                //}
             }
             else
             {
                 Debug.Print("Could not insert data into Registration Table");
             }
-            return studentsInsertReturnValue;
+            return returnData;
         }
     }
 }

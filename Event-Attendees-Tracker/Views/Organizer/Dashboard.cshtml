@@ -1,6 +1,8 @@
-﻿@{
+﻿@using Event_Attendees_Tracker.Modals.Response_Models
+@{
     ViewBag.Title = "Organizer";
     Layout = "~/Views/Organizer/_OrganizerNav.cshtml";
+    var activeEventsData = (List<ActiveEvents>)ViewData["EventsResponse"];
 }
 <html lang="en">
 <head>
@@ -16,11 +18,11 @@
 
 
 </head>
-<body style="background-color:#f2f3f7">  
+<body style="background-color: #f2f3f7">  
 
 
     @*Active Events*@
-
+   
     <div class=" col-sm-6 w3-panel w3-card" data-spy="scroll" data-offset="15" data-target="#myScrollspy">
         <div class="left-partition ">
             <h2 class="sub-header" style="color:#76CDD8">&nbsp; Active Events</h2>
@@ -29,28 +31,29 @@
 
                 @{
 
-                    for (int i = 1; i < 6; i++)
+                    foreach(var test in activeEventsData)
                     {
+                        if (test.EventDate >= DateTime.Now)
+                         {
+                             @:<div>
+                             @:<div class="col-lg-12 col-sm-12">
+                             @:<div class="card hovercard">
+                             @:<div class="cardheader">
+                             @:</div>
+                             @:<div class="avatar">
+                             <img alt="" src="~/Content/Images/Organizer_Dashboard/avatar.png"/>
+                             @:</div>
+                             @:<div class="info">
+                             @:<div class="title">
+                             @Html.ActionLink(test.EventName, "GetDetailsOfEvent", new {EventId=test.Id})
+                             @:</div>
+                             @:<div class="desc"><p><b>Event Date:</b>@test.EventDate.ToString("dd/MM/yyyy")</p><p><b>Time:</b>@test.StartTime.ToString("hh:mm tt") - @test.EndTime.ToString("hh:mm tt")</p><p>@test.Description</p> </div>
+                             @:</div>
+                             @:</div>
+                             @:</div>
+                             @:</div>
 
-                        @: <div>
-                            @: <div class="col-lg-12 col-sm-12">
-                                @: <div class="card hovercard">
-                                    @:   <div class="cardheader">
-                                    @:</div>
-                                    @: <div class="avatar">
-                                        <img alt="" src="~/Content/Images/Organizer_Dashboard/avatar.png">
-                                    @:</div>
-                                    @:<div class="info">
-                                        @: <div class="title">
-                                            @:  <a target="_blank" href="#">Event Name @i</a>
-                                        @:</div>
-                                        @:  <div class="desc"><p>Join artist Lindsay Seers and Professor Anil Seth as they discuss the science behind current John Hansard Gallery exhibition, Every Thought There Ever Was. Seth is Professor of Cognitive and Computational Neuroscience and co-director of the Sackler Centre for Consciousness Science at the University of Sussex.Join artist Lindsay Seers and Professor Anil Seth as they discuss the science behind current John Hansard Gallery exhibition, Every Thought There Ever Was. Seth is Professor of Cognitive and Computational Neuroscience and co-director of the Sackler Centre for Consciousness Science at the University of Sussex.</p> </div>
-                                    @:</div>
-                                @:</div>
-                            @:</div>
-                        @:</div>
-
-
+                         }
 
 
                     }
@@ -65,14 +68,14 @@
     <div class="w3-container col-sm-6 ">
         <div class="w3-panel w3-card" style="background-color:white">
             <div class="row" style="background-color:white;">
-                <div style="background-color:white;" class="col-md-6 ">
+                <div style="background-color:white;" class="col-md-12 ">
                     <h2 class="sub-header" style="color:#76CDD8">&nbsp;Reports</h2>
 
                     <div id="piechart_3d" class="chart "> </div>
                 </div>
-                <div style="background-color:white;" class="col-md-6 ">
+                @*<div style="background-color:white;" class="col-md-6 ">
                     <div id="chart_div" class="chart "></div>
-                </div>
+                </div>*@
             </div>
         </div>
         @*Past Events*@
@@ -85,36 +88,38 @@
                         <div id="accordion">
                             @{
 
-                                for (int i = 1; i < 6; i++)
+                                foreach (var test in activeEventsData)
                                 {
-                                    @:<h3>Event @i</h3>
-                                    @: <div>
-                                        @: <div class="col-lg-12 col-sm-12">
-                                            @: <div class="card hovercard">
-                                                @:   <div class="cardheader">
-                                                @:</div>
-                                                @: <div class="avatar">
-                                                    <img alt="" src="~/Content/Images/Organizer_Dashboard/avatar.png">
-                                                @:</div>
-                                                @:<div class="info">
-                                                    @: <div class="title">
-                                                        @:  <a target="_blank" href="https://scripteden.com/">Event Name @i</a>
-                                                    @:</div>
-                                                    @:  <div class="desc"><p>Join artist Lindsay Seers and Professor Anil Seth as they discuss the science behind current John Hansard Gallery exhibition, Every Thought There Ever Was. Seth is Professor of Cognitive and Computational Neuroscience and co-director of the Sackler Centre for Consciousness Science at the University of Sussex.Join artist Lindsay Seers and Professor Anil Seth as they discuss the science behind current John Hansard Gallery exhibition, Every Thought There Ever Was. Seth is Professor of Cognitive and Computational Neuroscience and co-director of the Sackler Centre for Consciousness Science at the University of Sussex.</p> </div>
-                                                @:</div>
-                                            @:</div>
+                                    if (test.EventDate < DateTime.Now)
+                                    {
+                                        @:<h3>@test.EventName</h3>
+                                        @:<div>
+                                        @:<div class="col-lg-12 col-sm-12">
+                                        @:<div class="card hovercard">
+                                        @:<div class="cardheader">
                                         @:</div>
-                                    @:</div>
+                                        @:<div class="avatar">
+                                        <img alt="" src="~/Content/Images/Organizer_Dashboard/avatar.png">
+                                        @:</div>
+                                        @:<div class="info">
+                                        @:<div class="title">
+                                        @Html.ActionLink(test.EventName, "GetDetailsOfEvent",  new {EventId=test.Id})
+                                        @:</div>
+                                        @:<div class="desc"><p><b>Event Date:</b>@test.EventDate.ToString("dd/MM/yyyy")</p><p><b>Time:</b>@test.StartTime.ToString("hh:mm tt") - @test.EndTime.ToString("hh:mm tt")</p><p>@test.Description</p> </div>
+                                        @:</div>
+                                        @:</div>
+                                        @:</div>
+                                        @:</div>
+                                    }
                                 }
                             }
-
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         @*Download Float Button*@
-        <a href="#" class="float">
+        <a href="https://localhost:44360/Template/Event_Attendees_Tracker_Student_Registration_Template.xlsx" class="float">
             <i class="fa fa-download my-float"></i>
         </a>
         <div class="label-container">

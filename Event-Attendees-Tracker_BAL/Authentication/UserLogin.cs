@@ -4,11 +4,11 @@ using System;
 //Custom Namespace Imports
 using Event_Attendees_Tracker_DAL.DBQueries;
 using Event_Attendees_Tracker_BAL.Models.ResponseModels;
-using Event_Attendees_Tracker_BAL.Utils;
+using Event_Attendees_Tracker_BAL.util;
 
 namespace Event_Attendees_Tracker_BAL.Authentication
 {
-    public class UserLogin
+    public class UserLogin:IUserLogin
     {
         /// <summary>
         /// Authenticate User with Email And Password        
@@ -16,7 +16,7 @@ namespace Event_Attendees_Tracker_BAL.Authentication
         /// <param name="Email">User Email</param>
         /// <param name="Password">User Password</param>
         /// <returns>User Data with Role Inof with User ID</returns>        
-        public static Login_ResponseModel LoginUserWithEmailAndPassword(string Email, string Password)
+        public ILogin_ResponseModel LoginUserWithEmailAndPassword(string Email, string Password)
         {
             //TODO:
             //Step 1: Fetch User With given Email

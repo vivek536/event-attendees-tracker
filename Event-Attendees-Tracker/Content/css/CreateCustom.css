@@ -13,8 +13,6 @@ input[type="file"] {
 
 .w3-container {
     margin-top: 50px;
-    /*display:flex;
-            justify-items:flex-end;*/
 }
 
 header {
@@ -24,7 +22,9 @@ header {
 .w3-card {
     display: flex;
     flex-direction: column;
-    padding: 50px 20px 50px 80px;
+    padding: 50px 30px 50px 30px;
+    width: 65%;
+    margin: 0 auto;
 }
 
 .blue {
@@ -34,20 +34,16 @@ header {
 input {
     padding-right: 1px;
 }
-
 .time {
     padding-left: 1px;
     padding-right: 10px;
 }
-
-/*font-face {
-            font-family: blanch;
-            src: url('BLANCH_CAPS_INLINE.otf') format('embedded-opentype');
-        }
-        font-face{
-            font-family: blanch;
-            src: local('./fonts/BLANCH_CAPS_INLINE.ttf');
-        }*/
+#time {
+    min-width: 50px;
+}
+#time.form-control {
+    padding: 0;
+}
 
 header {
     font-family: 'blanch';

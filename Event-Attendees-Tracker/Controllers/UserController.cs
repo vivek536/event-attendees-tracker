@@ -1,4 +1,5 @@
 ﻿//System Namespace Import
+using System;
 using RestSharp;
 using System.Diagnostics;
 using System.Web.Mvc;
@@ -28,20 +29,15 @@ namespace Event_Attendees_Tracker.Controllers
         {
             var request = new RestRequest("api/Login");
             request.Method = Method.POST;
-            request.AddJsonBody(new { Email = formData.Get("username"), Password = formData.Get("password") });
-            var response = client.Execute(request);
+            request.AddJsonBody(new { Email = formData.Get("emailID"), Password = formData.Get("password") });
+            var response = client.Execute(request);            
 
             if (response.StatusCode == System.Net.HttpStatusCode.OK)
             {
                 var content = new JsonDeserializer(response.Content);
 
-
-                //Remove it
-                Debug.Print(content.GetString("RoleName"));
-                Debug.Print(content.GetInt("UserID").ToString());
-
-                FormsAuthentication.SetAuthCookie(content.GetInt("UserID").ToString(), false);
-                Session["UserId"] = content.GetInt("UserID");
+                FormsAuthentication.SetAuthCookie(content.GetInt("UserID").ToString(), formData.Get("rememberMe")=="on"?true:false);
+                Session["userId"] = content.GetInt("UserID");
 
                 return RedirectToAction("Dashboard", content.GetString("RoleName"));
             }
@@ -50,6 +46,19 @@ namespace Event_Attendees_Tracker.Controllers
             return View("Login");
             //return RedirectToAction("Organizer");
 
+        }
+
+        public RedirectToRouteResult Logout()
+        {
+            try {
+                FormsAuthentication.SignOut();
+            }
+            catch(Exception ex)
+            {
+                
+            }
+            
+            return RedirectToAction("Login");
         }
 
 
